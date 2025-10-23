@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能锁常见问题解答</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e9ecef;
+            --text-color: #333;
+            --light-color: #f8f9fa;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .ai-chat-container {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+        }
+        
+        .user-message {
+            justify-content: flex-end;
+        }
+        
+        .bot-message {
+            justify-content: flex-start;
+        }
+        
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            position: relative;
+        }
+        
+        .user-message .message-bubble {
+            background: var(--secondary-color);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .bot-message .message-bubble {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 15px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #999;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+        
+        .chat-input-container {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        #chat-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        #send-button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        #send-button:hover {
+            background: #2980b9;
+        }
+        
+        .suggested-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+        
+        .suggested-question {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .suggested-question:hover {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        .faq-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .faq-category {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .faq-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .category-header {
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #eee;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-question {
+            padding: 18px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        
+        .faq-question:hover {
+            background-color: var(--light-color);
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 1000px;
+        }
+        
+        .faq-answer-content {
+            padding-top: 10px;
+        }
+        
+        .faq-answer-content p {
+            margin-bottom: 15px;
+        }
+        
+        .faq-answer-content ol, .faq-answer-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .faq-answer-content li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+        
+        .product-table th, .product-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .product-table th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+        }
+        
+        .product-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .faq-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .product-table {
+                font-size: 0.8rem;
+            }
+            
+            .message-bubble {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-bg"></div>
+            <div class="header-content">
+                <h1>智能锁常见问题解答</h1>
+                <p class="subtitle">为您提供专业的智能锁解决方案</p>
+            </div>
+        </header>
+        
+        <div class="ai-chat-container">
+            <div class="chat-header">
+                <i class="fas fa-robot"></i>
+                <span>智能锁助手 - 请问您需要什么帮助？</span>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot-message">
+                    <div class="message-bubble">
+                        您好！我是智能锁助手，可以回答您关于智能锁的各种问题。请直接提问，或点击下方推荐问题。
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="请输入您的问题...">
+                <button id="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="suggested-questions">
+                <div class="suggested-question" data-question="各个型号之间的差别">各个型号之间的差别</div>
+                <div class="suggested-question" data-question="是否包安装">是否包安装</div>
+                <div class="suggested-question" data-question="锁没电了怎么办">锁没电了怎么办</div>
+                <div class="suggested-question" data-question="支持哪些支付方式">支持哪些支付方式</div>
+            </div>
+        </div>
+        
+        <div class="categories">
+            <button class="category-btn active" data-category="all">
+                <i class="fas fa-list"></i>全部问题
+            </button>
+            <button class="category-btn" data-category="product">
+                <i class="fas fa-box"></i>产品选择与型号差异
+            </button>
+            <button class="category-btn" data-category="purchase">
+                <i class="fas fa-shopping-cart"></i>购买与售后
+            </button>
+            <button class="category-btn" data-category="installation">
+                <i class="fas fa-tools"></i>安装与门体适配
+            </button>
+            <button class="category-btn" data-category="function">
+                <i class="fas fa-cog"></i>功能与操作
+            </button>
+            <button class="category-btn" data-category="business">
+                <i class="fas fa-handshake"></i>商务与系统对接
+            </button>
+        </div>
+        
+        <div class="faq-container">
+            <!-- 产品选择与型号差异 -->
+            <div class="faq-category" data-category="product">
+                <div class="category-header">
+                    <i class="fas fa-box"></i>产品选择与型号差异
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">各个型号之间的差别？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>不同型号主要在功能（如Wi-Fi/蓝牙联网方式）、外观（如彩屏、全铝合金）和适用场景（公寓/民宿/家用）上有区别，我们会根据您的需求推荐最合适的款式。</p>
+                            <table class="product-table">
+                                <thead>
+                                    <tr>
+                                        <th>产品常见型号</th>
+                                        <th>适用门型</th>
+                                        <th>适配锁体</th>
+                                        <th>类型</th>
+                                        <th>材质</th>
+                                        <th>功能</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>N系列</td>
+                                        <td>木门</td>
+                                        <td>5050</td>
+                                        <td>半自动</td>
+                                        <td>铝合金和钢化玻璃，把手盖、电池盖和旋钮是塑料</td>
+                                        <td>根据选配的主板不同，有所差异，但同一主板的功能相同，支持对接各大公寓系统。</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G/A系列-真插芯</td>
+                                        <td>防盗门</td>
+                                        <td>6068</td>
+                                        <td>半自动</td>
+                                        <td>铝合金和钢化玻璃，把手盖、电池盖和旋钮是塑料</td>
+                                        <td>根据选配的主板不同，有所差异，但同一主板的功能相同，支持对接各大公寓系统。</td>
+                                    </tr>
+                                    <tr>
+                                        <td>G/A系列-下插芯</td>
+                                        <td>木门</td>
+                                        <td>酒店锁体</td>
+                                        <td>半自动</td>
+                                        <td>铝合金和钢化玻璃，把手盖、电池盖和旋钮是塑料</td>
+                                        <td>根据选配的主板不同，有所差异但同一主板的功能相同，支持对接各大公寓系统。</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Q系列</td>
+                                        <td>防盗门</td>
+                                        <td>6068</td>
+                                        <td>全自动</td>
+                                        <td>全铝合金</td>
+                                        <td>仅有家用版本，不支持对接公寓系统。</td>
+                                    </tr>
+                                    <tr>
+                                        <td>J系列</td>
+                                        <td>木门</td>
+                                        <td>酒店锁体</td>
+                                        <td>半自动</td>
+                                        <td>全铝合金，精雕锁</td>
+                                        <td>支持同欣、普兰德、通通和涂鸦等。</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">哪款智能锁更好？哪个更耐用？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>每款锁都有自己的优势，全铝合金版本在结构上更耐用，锌合金版本的价格更便宜。我们会根据您的预算和门型推荐性价比最高的选择。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">公寓锁怎么选？我是民宿用，选择哪款？哪款可以连接美团？哪款支持途家？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>对于公寓/民宿/酒店/棋牌室/学校/金融宿舍等，一款基础的密码锁就非常实用，成本低，且能满足所有使用者的日常使用，如果高频开关们，建议选择带轴承的G系列锁，结构性能更加稳定。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">通通锁科技侠都有什么功能？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>基础版本：</strong>包括密码开锁、刷卡开锁、蓝牙开锁、远程下发密码开锁、对接各类民宿app以及PMS系统等；注意远程下发密码开锁，无需联网（即不需要Wi-Fi锁也不需要配网关）</p>
+                            <p><strong>联网版本：</strong>支持远程开门、查看开门记录、远程发卡（配合发卡器）、远程删除密码等。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">民宿用锁怎么选？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>推荐选择蓝牙锁，如果是美团民宿（无需联网版本，直接购买蓝牙版本即可，支持离线模式下发密码，科技侠独有），可以直接对接各大民宿平台，方便您远程下发密码，管理房源。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">配高频卡还是低频卡？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>您好，仅支持高频卡或者高低频卡，不支持低频卡。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">可以手机蓝牙开锁吗？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>支持。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 购买与售后 -->
+            <div class="faq-category" data-category="purchase">
+                <div class="category-header">
+                    <i class="fas fa-shopping-cart"></i>购买与售后
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">是否包安装？包安装吗？你们会有人上门安装吗？包安装还是有安装费啊？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>您好，我们是公寓锁工厂，不支持直接提供安装服务，您购买后可通过"奇兵到家"或者"鲁班到家"的小程序预约师傅上门安装，约60-70元/套（电子锁一口价的模式），安装服务可靠有保障。</p>
+                            <p>如您购买多套，优先预约1套，再联系师傅议价安装其他锁，客户普遍反馈3套以上不开孔不开槽情况下可50元/套。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">价格还可以便宜吗？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>我们的价格已经是极具竞争力的性价比之选，旨在为您提供物超所值的产品和服务。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">质保如何</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>产品提供2年质保，在质保期内非人为损坏的质量问题，我们提供免费的维修服务，1个月内如有质量问题免费换新，双方各自付邮费即可。一般情况下，只要工厂不倒闭，基本都可以享受到维保服务。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">售后如何</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>我们提供专业的售后技术支持，有任何使用问题都可以联系我们的客服，我们不为赚快钱，售后有保障。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">能开发票吗？增值税发票可以开吗？你可以帮我把安装费也开进去吗？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>您好，我们支持开具增值税普通发票和专用发票。普票免费开，超出金额部分3个点收费；专票10个点，超出金额部分13个点；请您在下单时备注好开票信息即可。</p>
+                            <p>安装费无法开具发票，因为安装服务由第三方提供。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">发什么快递？可以发顺丰吗？发货时效问题？快点发？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>您好，除周日公休外，通常在下单后48小时内发货，当天4点半之前的订单，当天揽收完成，约晚上6-7可以查看到具体的物流信息。</p>
+                            <p>本公司默认发申通快递，安能、德邦也有合作，订单量大的客户，优先发送物流，无忧不喜欢的物流也可提前告知，我们尽量规避。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">从哪里发货？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>您好，我们直接从工厂发出，浙江金华永康发货，发货地即为售后地，包装上也印有我司制造商的地址，欢迎选购。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">什么时候发货？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>一般付款后48小时内安排发货，定制型号除外。如您在境外使用门锁，含港澳台，请提前告知，默认为中文版本。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">质量怎么样？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>请您放心，我们致力于长期发展，所有产品均有完善的质量保障体系（缺陷率千分之3）和售后服务保障，绝不会做一锤子买卖。产品符合公安374标准，国标以及CE认证。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">锁没电了怎么办？进不去了？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>您可以通过锁底部的应急电源等进行供电，如：充电宝，type C接口。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">锁的尺寸？锁多大？锁多重？</div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>G系列、A系列：72*360*25mm</p>
+                            <p>N系列：65*280*25</p>
+                            <p>约1.5kg，搭配不同的锁体重量不同。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 更多FAQ内容... -->
+            
+        </div>
+        
+        <footer>
+            <p>© 2025 慧硕科技. 保留所有权利. | 淘宝店铺：科技侠通通锁工厂店｜客服热线: 19011425819</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            const chatInput = document.getElementById('chat-input');
+            const sendButton = document.getElementById('send-button');
+            const chatMessages = document.getElementById('chat-messages');
+            const suggestedQuestions = document.querySelectorAll('.suggested-question');
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            
+            // 增强版智能回复知识库
+            const knowledgeBase = [
+                {
+                    question: "各个型号之间的差别",
+                    keywords: ["型号", "差别", "区别", "不同", "哪款", "对比", "型号差异"],
+                    answer: "不同型号主要在功能（如Wi-Fi/蓝牙联网方式）、外观（如彩屏、全铝合金）和适用场景（公寓/民宿/家用）上有区别，我们会根据您的需求推荐最合适的款式。"
+                },
+                {
+                    question: "是否包安装",
+                    keywords: ["安装", "包安装", "上门安装", "安装费", "安装服务", "师傅安装"],
+                    answer: "我们是公寓锁工厂，不支持直接提供安装服务，您购买后可通过'奇兵到家'或'鲁班到家'小程序预约师傅上门安装，约60-70元/套。"
+                },
+                {
+                    question: "锁没电了怎么办",
+                    keywords: ["没电", "电池", "电量", "充电", "应急", "进不去", "开不了门"],
+                    answer: "您可以通过锁底部的应急电源等进行供电，如：充电宝，type C接口。"
+                },
+                {
+                    question: "支持哪些支付方式",
+                    keywords: ["支付", "付款", "支付宝", "微信", "信用卡", "银行卡", "转账"],
+                    answer: "我们支持信用卡/借记卡（Visa、MasterCard、American Express）、支付宝、微信支付、银行转账和PayPal等多种支付方式。"
+                },
+                {
+                    question: "质保如何",
+                    keywords: ["质保", "保修", "售后", "维修", "保障", "质量保证"],
+                    answer: "产品提供2年质保，在质保期内非人为损坏的质量问题，我们提供免费的维修服务，1个月内如有质量问题免费换新。"
+                },
+                {
+                    question: "从哪里发货",
+                    keywords: ["发货", "发货地", "哪里发货", "发货地址", "产地"],
+                    answer: "我们直接从工厂发出，浙江金华永康发货，发货地即为售后地。"
+                },
+                {
+                    question: "什么时候发货",
+                    keywords: ["发货时间", "多久发货", "发货时效", "快递", "物流"],
+                    answer: "一般付款后48小时内安排发货，定制型号除外。"
+                },
+                {
+                    question: "质量怎么样",
+                    keywords: ["质量", "好不好", "耐用", "稳定", "可靠", "品质"],
+                    answer: "我们致力于长期发展，所有产品均有完善的质量保障体系（缺陷率千分之3）和售后服务保障，产品符合公安374标准，国标以及CE认证。"
+                },
+                {
+                    question: "可以手机蓝牙开锁吗",
+                    keywords: ["蓝牙", "手机开锁", "蓝牙开锁", "手机控制", "APP"],
+                    answer: "支持手机蓝牙开锁功能。"
+                },
+                {
+                    question: "配高频卡还是低频卡",
+                    keywords: ["高频卡", "低频卡", "卡片", "门卡", "IC卡"],
+                    answer: "仅支持高频卡或者高低频卡，不支持低频卡。"
+                },
+                {
+                    question: "民宿用锁怎么选",
+                    keywords: ["民宿", "公寓", "酒店", "出租", "短租", "民宿锁"],
+                    answer: "推荐选择蓝牙锁，可以直接对接各大民宿平台，方便您远程下发密码，管理房源。"
+                },
+                {
+                    question: "通通锁科技侠都有什么功能",
+                    keywords: ["功能", "科技侠", "通通锁", "特色功能", "能做什么"],
+                    answer: "基础版本包括密码开锁、刷卡开锁、蓝牙开锁、远程下发密码开锁等功能；联网版本支持远程开门、查看开门记录等更多功能。"
+                },
+                {
+                    question: "公寓锁怎么选",
+                    keywords: ["公寓", "长租", "出租房", "公寓锁", "选择"],
+                    answer: "对于公寓/民宿/酒店等，一款基础的密码锁就非常实用，成本低，且能满足所有使用者的日常使用。"
+                },
+                {
+                    question: "哪款智能锁更好",
+                    keywords: ["更好", "推荐", "性价比", "耐用", "哪款好", "选择"],
+                    answer: "每款锁都有自己的优势，全铝合金版本在结构上更耐用，锌合金版本的价格更便宜。我们会根据您的预算和门型推荐性价比最高的选择。"
+                }
+            ];
+            
+            // 点击问题展开/收起答案
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    // 关闭其他打开的问题
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // 切换当前问题的状态
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // 发送消息
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message === '') return;
+                
+                // 添加用户消息
+                addMessage(message, 'user');
+                
+                // 清空输入框
+                chatInput.value = '';
+                
+                // 显示正在输入状态
+                showTypingIndicator();
+                
+                // 模拟AI回复
+                setTimeout(() => {
+                    const response = getAIResponse(message);
+                    addMessage(response, 'bot');
+                }, 1000);
+            }
+            
+            // 添加消息到聊天窗口
+            function addMessage(text, sender) {
+                // 移除正在输入状态
+                removeTypingIndicator();
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}-message`;
+                
+                const bubbleDiv = document.createElement('div');
+                bubbleDiv.className = 'message-bubble';
+                bubbleDiv.textContent = text;
+                
+                messageDiv.appendChild(bubbleDiv);
+                chatMessages.appendChild(messageDiv);
+                
+                // 滚动到底部
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // 显示正在输入状态
+            function showTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'typing-indicator';
+                typingDiv.id = 'typing-indicator';
+                
+                typingDiv.innerHTML = `
+                    正在思考...
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                `;
+                
+                chatMessages.appendChild(typingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // 移除正在输入状态
+            function removeTypingIndicator() {
+                const typingIndicator = document.getElementById('typing-indicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+            
+            // 获取AI回复 - 增强版匹配算法
+            function getAIResponse(question) {
+                // 转换为小写，去除标点符号
+                const cleanQuestion = question.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+                
+                // 计算每个知识库条目的匹配度
+                let bestMatch = null;
+                let highestScore = 0;
+                
+                knowledgeBase.forEach(item => {
+                    let score = 0;
+                    
+                    // 关键词匹配
+                    item.keywords.forEach(keyword => {
+                        if (cleanQuestion.includes(keyword)) {
+                            score += 2; // 关键词匹配加分
+                        }
+                    });
+                    
+                    // 问题相似度匹配
+                    if (cleanQuestion.includes(item.question.toLowerCase())) {
+                        score += 5; // 问题直接匹配加分更高
+                    }
+                    
+                    // 更新最佳匹配
+                    if (score > highestScore) {
+                        highestScore = score;
+                        bestMatch = item;
+                    }
+                });
+                
+                // 根据匹配度返回答案
+                if (bestMatch && highestScore >= 2) {
+                    return bestMatch.answer;
+                } else {
+                    // 如果没有找到匹配，提供更友好的回复
+                    const fallbackResponses = [
+                        "这个问题我需要进一步了解，您可以尝试重新表述您的问题。",
+                        "我暂时没有找到这个问题的答案，您可以查看下方的常见问题列表。",
+                        "关于这个问题，我建议您联系我们，他们会为您提供更详细的
